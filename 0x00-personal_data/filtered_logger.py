@@ -49,17 +49,18 @@ class RedactingFormatter(logging.Formatter):
             self.fields, self.REDACTION, message, self.SEPARATOR
         )
 
-    def get_logger() -> logging.Logger:
-        """
-        Return a logging.Logger object configured for user data.
-        """
-        logger = logging.getLogger("user_data")
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
 
-        handler = logging.StreamHandler()
-        formatter = RedactingFormatter(fields=PII_FIELDS)
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
+def get_logger() -> logging.Logger:
+    """
+    Return a logging.Logger object configured for user data.
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
 
-        return logger
+    handler = logging.StreamHandler()
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    return logger
